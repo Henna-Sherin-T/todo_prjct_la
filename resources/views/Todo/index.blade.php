@@ -11,13 +11,13 @@
                     <h1 class="text-2xl font-bold text-gray-800">
                         Todo List
                     </h1>
-                    @if(session('success'))
-                    <alert class="text-green-500 border-green-300">
-                        {{ session('success') }}
-</alert>
-                    @endif
                     <a href="{{route('TodoCreate')}}" class="p-2 font-semibold rounded-md shadow ">Add New</a>
                 </div>
+                @if(session('success'))
+                    <alert class="text-green-500 border-green-300">
+                        {{ session('success') }}
+                    </alert>
+                    @endif
                 <!-- Divider -->
                 <div class="divide-y divide-gray-200">
                     <!-- Todo List Section -->
@@ -25,19 +25,7 @@
                         <div class="max-h-96 overflow-y-auto">
                             <ul class="space-y-4">
                                 @foreach ($todo_table as $todo)
-                                <li class="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                                    <div class="flex items-center space-x-3">
-                                        <span class="block text-lg font-medium text-gray-800">{{ $todo->title }}</span>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <a href="" class="py-2 px-4 bg-yellow-500 font-medium rounded-md shadow hover:bg-yellow-600 transition duration-300">Edit</a>
-                                        <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this todo?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="py-2 px-4 bg-red-500  font-medium rounded-md shadow hover:bg-red-600 transition duration-300">Delete</button>
-                                        </form>
-                                    </div>
-                                </li>
+                                <x-todo.todo-card :todo="$todo"/>
                                 @endforeach
                             </ul>
                         </div>
